@@ -9,7 +9,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { TopPageModel } from './top-page.model';
-import { FindTopPageDto } from './top-page/top-page.dto';
+import { FindTopPageDto } from './dto/top-page.dto';
 
 @Controller('top-page')
 export class TopPageController {

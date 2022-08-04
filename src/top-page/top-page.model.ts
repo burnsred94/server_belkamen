@@ -1,4 +1,6 @@
-import { Pages } from './interfaces/page.interface';
+import { Pages } from './models/page.models';
+import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export enum TopLevelCategory {
   Main,
@@ -7,11 +9,17 @@ export enum TopLevelCategory {
   About,
   Contacts,
 }
-
+export type TopPageDocuments = TopPageModel & Document;
+@Schema()
 export class TopPageModel {
-  _id: string;
+  @Prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory;
+  @Prop()
   secondCategory: string;
+  @Prop()
   title: string;
+  @Prop()
   pages: Pages;
 }
+
+export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
