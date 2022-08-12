@@ -1,26 +1,36 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { TopPageModule } from './top-page/top-page.module';
+import { TopPageModule } from './pages/pages.module';
 import { ProductModule } from './product/product.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
-import { getMongoConfig } from './configs/mongo.config';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { FilesModule } from './files/files.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: getMongoConfig,
-    }),
-    AuthModule,
-    TopPageModule,
-    ProductModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		ConfigModule.forRoot(),
+		TypeOrmModule.forRootAsync({
+			imports: [ConfigModule],
+			inject: [ConfigService],
+			useFactory: async (
+				configService: ConfigService,
+			): Promise<TypeOrmModuleOptions> => ({
+				type: 'mysql',
+				host: configService.get('DB_HOST'),
+				port: Number(configService.get('DB_PORT')) || 3306,
+				username: configService.get('DB_USERNAME'),
+				password: configService.get('DB_PASSWORD'),
+				database: configService.get('DB_NAME'),
+				entities: [],
+				synchronize: true,
+				autoLoadEntities: true,
+			}),
+		}),
+		AuthModule,
+		TopPageModule,
+		ProductModule,
+		FilesModule,
+	],
+	providers: [ConfigService],
 })
 export class AppModule {}

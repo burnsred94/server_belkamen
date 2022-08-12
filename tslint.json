@@ -3,7 +3,7 @@
 		"no-var-requires": true,
 		"no-any": true,
 		"promise-function-async": true,
-		"await-promise": true,
+		"await-promise": false,
 		"curly": true,
 		"prefer-for-of": true,
 		"forin": true,
@@ -44,7 +44,7 @@
 		"import-spacing": true,
 		"max-line-length": [
 			true,
-			120
+			500
 		],
 		"no-trailing-whitespace": false,
 		"quotemark": [

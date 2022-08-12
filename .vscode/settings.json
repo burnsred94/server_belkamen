@@ -1,0 +1,8 @@
+{
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "js/ts.implicitProjectConfig.checkJs": true,
+    "tslint.configFile": "tslint.json",
+    "tslint.ignoreDefinitionFiles": false,
+    "tslint.jsEnable": false,
+    "prettier.singleQuote": true
+}
