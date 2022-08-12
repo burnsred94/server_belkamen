@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { FilesModule } from './files/files.module';
 import { getTelegramConfig } from './configs/telegram.config';
 import { getTypeOrmConfig } from './configs/typeorm.config';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
 	imports: [
@@ -27,6 +28,7 @@ import { getTypeOrmConfig } from './configs/typeorm.config';
 			inject: [ConfigService],
 			useFactory: getTelegramConfig,
 		}),
+		FeedbackModule,
 	],
 	providers: [ConfigService],
 })
